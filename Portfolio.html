@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light" data-paint="terracota">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>chemy.ia · Motor de operações para fábricas de tintas</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+window.__TWEAKS__ = {
+  theme: "light",
+  hero: "v2",
+  lang: "en",
+  paint: "terracota"
+};
+</script>
+
+<script type="text/babel" src="components/i18n.jsx"></script>
+<script type="text/babel" src="components/Logo.jsx"></script>
+<script type="text/babel" src="components/Nav.jsx"></script>
+<script type="text/babel" src="components/Hero.jsx"></script>
+<script type="text/babel" src="components/Sections.jsx"></script>
+<script type="text/babel" src="components/Tweaks.jsx"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+function TweaksToggle({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label="Open tweaks panel"
+      style={{
+        position: 'fixed', bottom: 20, right: 20, zIndex: 99,
+        width: 44, height: 44, borderRadius: '50%',
+        background: 'var(--paint-hue)', color: 'var(--accent-ink)',
+        border: '1px solid var(--border-strong)', cursor: 'pointer',
+        fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.1em',
+        boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)'
+      }}
+    >✱</button>
+  );
+}
+
+function App() {
+  const [theme, setTheme] = useState(window.__TWEAKS__.theme || 'dark');
+  const [hero, setHero] = useState(window.__TWEAKS__.hero || 'v2');
+  const [lang, setLang] = useState(window.__TWEAKS__.lang || 'pt');
+  const [paint, setPaint] = useState(window.__TWEAKS__.paint || 'grafite');
+  const [tweaksOpen, setTweaksOpen] = useState(false);
+
+  const t = window.I18N[lang];
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-paint', paint);
+    document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
+  }, [theme, lang, paint]);
+
+  const Hero = hero === 'v1' ? window.HeroV1 : window.HeroV2;
+
+  return (
+    <div>
+      <Nav t={t} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
+      <Hero t={t} lang={lang} />
+      <LogoStrip t={t} />
+      <Pillars t={t} />
+      <IASection t={t} lang={lang} />
+      <Customers t={t} />
+      <Pricing t={t} />
+      <FinalCTA t={t} />
+      <Footer t={t} />
+      {!tweaksOpen && <TweaksToggle onClick={() => setTweaksOpen(true)} />}
+      <Tweaks
+        theme={theme} setTheme={setTheme}
+        hero={hero} setHero={setHero}
+        lang={lang} setLang={setLang}
+        paint={paint} setPaint={setPaint}
+        open={tweaksOpen} setOpen={setTweaksOpen}
+      />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
