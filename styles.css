@@ -126,3 +126,179 @@ a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 10px; }
+
+/* ───────────────────────────────────────────
+   Paint splash reveal — sections paint themselves
+   onto the page as the user scrolls forward.
+   ─────────────────────────────────────────── */
+
+.splash-reveal {
+  /* Until visible: collapsed paint blobs */
+  opacity: 0;
+  transform: translateY(40px) scale(0.985);
+  filter: blur(6px) saturate(0.6);
+  -webkit-mask-image:
+    radial-gradient(ellipse 30% 35% at 18% 32%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 32% 38% at 72% 18%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 34% 36% at 30% 78%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 30% 34% at 86% 64%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 38% 40% at 55% 50%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 28% 32% at 12% 88%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 30% 30% at 92% 92%, #000 40%, transparent 100%);
+  mask-image:
+    radial-gradient(ellipse 30% 35% at 18% 32%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 32% 38% at 72% 18%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 34% 36% at 30% 78%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 30% 34% at 86% 64%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 38% 40% at 55% 50%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 28% 32% at 12% 88%, #000 40%, transparent 100%),
+    radial-gradient(ellipse 30% 30% at 92% 92%, #000 40%, transparent 100%);
+  -webkit-mask-size: 25%, 25%, 25%, 25%, 30%, 25%, 25%;
+  mask-size: 25%, 25%, 25%, 25%, 30%, 25%, 25%;
+  -webkit-mask-position: 18% 32%, 72% 18%, 30% 78%, 86% 64%, 55% 50%, 12% 88%, 92% 92%;
+  mask-position: 18% 32%, 72% 18%, 30% 78%, 86% 64%, 55% 50%, 12% 88%, 92% 92%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-mask-size 1300ms cubic-bezier(0.16, 1.1, 0.3, 1),
+    mask-size 1300ms cubic-bezier(0.16, 1.1, 0.3, 1);
+}
+
+.splash-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0) saturate(1);
+  -webkit-mask-image: none;
+  mask-image: none;
+  -webkit-mask-size: 400%, 400%, 400%, 400%, 500%, 400%, 400%;
+  mask-size: 400%, 400%, 400%, 400%, 500%, 400%, 400%;
+}
+
+/* Paint blob accent that slides in behind each section */
+.splash-blob {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: var(--paint-hue);
+  opacity: 0;
+  filter: blur(60px);
+  transition: opacity 1200ms ease, transform 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(0.3);
+  z-index: 0;
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] .splash-blob { mix-blend-mode: screen; }
+
+.splash-reveal.in-view .splash-blob {
+  opacity: 0.35;
+  transform: scale(1);
+}
+
+/* Stagger: each section delays its splash a touch */
+.splash-reveal[data-splash-i="0"] { transition-delay: 0ms; }
+.splash-reveal[data-splash-i="1"] { transition-delay: 60ms; }
+.splash-reveal[data-splash-i="2"] { transition-delay: 90ms; }
+.splash-reveal[data-splash-i="3"] { transition-delay: 120ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-reveal {
+    opacity: 1; transform: none; filter: none;
+    -webkit-mask-image: none; mask-image: none;
+    -webkit-clip-path: none; clip-path: none;
+  }
+  .splash-blob { display: none; }
+}
+
+/* ───────────────────────────────────────────
+   Painting scene — animated AI painting a house
+   ─────────────────────────────────────────── */
+
+.paint-scene-bg {
+  position: absolute; inset: 0;
+  z-index: 1;
+  opacity: 0.85;
+}
+.paint-scene-bg::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--bg) 30%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 5%, transparent) 35%,
+    color-mix(in srgb, var(--bg) 70%, transparent) 100%);
+  pointer-events: none;
+}
+
+.paint-stripe {
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: paintStripe 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes paintStripe {
+  0%, 4%   { transform: scaleX(0); opacity: 0; }
+  10%      { opacity: 1; }
+  55%      { transform: scaleX(1); opacity: 1; }
+  88%      { transform: scaleX(1); opacity: 1; }
+  98%, 100%{ transform: scaleX(0); opacity: 0; transform-origin: right center; }
+}
+
+.paint-roof {
+  transform: scaleY(0);
+  transform-origin: center bottom;
+  animation: paintRoof 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.4s;
+}
+@keyframes paintRoof {
+  0%, 6%   { transform: scaleY(0); }
+  40%      { transform: scaleY(1); }
+  90%      { transform: scaleY(1); }
+  100%     { transform: scaleY(0); transform-origin: center top; }
+}
+
+.paint-brush {
+  animation: brushMove 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes brushMove {
+  0%   { transform: translate(420px, 380px) rotate(-8deg); }
+  20%  { transform: translate(1080px, 380px) rotate(2deg); }
+  40%  { transform: translate(420px, 540px) rotate(-6deg); }
+  60%  { transform: translate(1080px, 660px) rotate(4deg); }
+  80%  { transform: translate(420px, 720px) rotate(-2deg); }
+  100% { transform: translate(420px, 380px) rotate(-8deg); }
+}
+
+.paint-drip {
+  animation: dripFall 1.4s ease-in infinite;
+  transform-origin: center top;
+}
+@keyframes dripFall {
+  0%   { transform: translateY(0) scale(1); opacity: 0.9; }
+  60%  { transform: translateY(20px) scale(0.9); opacity: 0.6; }
+  100% { transform: translateY(60px) scale(0.4); opacity: 0; }
+}
+
+.paint-hud {
+  animation: brushMove 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.paint-trackers rect {
+  animation: trackerPulse 2s ease-in-out infinite;
+  transform-origin: center;
+}
+.paint-trackers rect:nth-child(1) { animation-delay: 0s; }
+.paint-trackers rect:nth-child(2) { animation-delay: 0.3s; }
+.paint-trackers rect:nth-child(3) { animation-delay: 0.6s; }
+.paint-trackers rect:nth-child(4) { animation-delay: 0.9s; }
+@keyframes trackerPulse {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paint-stripe, .paint-roof, .paint-brush, .paint-drip,
+  .paint-hud, .paint-trackers rect { animation: none; }
+  .paint-stripe { transform: scaleX(1); }
+  .paint-roof { transform: scaleY(1); }
+}

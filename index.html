@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light" data-paint="terracota">
+<html lang="pt-BR" data-theme="dark" data-paint="grafite">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,20 +8,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="root"></div>
 
 <script>
-window.__TWEAKS__ = {
-  theme: "light",
-  hero: "v2",
-  lang: "en",
-  paint: "terracota"
-};
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "dark",
+  "hero": "v1",
+  "lang": "pt",
+  "paint": "sahara"
+}/*EDITMODE-END*/;
+window.__TWEAKS__ = { ...TWEAK_DEFAULTS };
 </script>
 
 <script type="text/babel" src="components/i18n.jsx"></script>
@@ -29,27 +30,12 @@ window.__TWEAKS__ = {
 <script type="text/babel" src="components/Nav.jsx"></script>
 <script type="text/babel" src="components/Hero.jsx"></script>
 <script type="text/babel" src="components/Sections.jsx"></script>
+<script type="text/babel" src="components/PaintingScene.jsx"></script>
+<script type="text/babel" src="components/SplashReveal.jsx"></script>
 <script type="text/babel" src="components/Tweaks.jsx"></script>
 
 <script type="text/babel">
 const { useState, useEffect } = React;
-
-function TweaksToggle({ onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      aria-label="Open tweaks panel"
-      style={{
-        position: 'fixed', bottom: 20, right: 20, zIndex: 99,
-        width: 44, height: 44, borderRadius: '50%',
-        background: 'var(--paint-hue)', color: 'var(--accent-ink)',
-        border: '1px solid var(--border-strong)', cursor: 'pointer',
-        fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.1em',
-        boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)'
-      }}
-    >✱</button>
-  );
-}
 
 function App() {
   const [theme, setTheme] = useState(window.__TWEAKS__.theme || 'dark');
@@ -66,27 +52,58 @@ function App() {
     document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
   }, [theme, lang, paint]);
 
+  const persist = (key, val) => {
+    try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*'); } catch (e) {}
+  };
+  useEffect(() => { persist('theme', theme); }, [theme]);
+  useEffect(() => { persist('hero', hero); }, [hero]);
+  useEffect(() => { persist('lang', lang); }, [lang]);
+  useEffect(() => { persist('paint', paint); }, [paint]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (!e.data) return;
+      if (e.data.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', handler);
+    try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (e) {}
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
   const Hero = hero === 'v1' ? window.HeroV1 : window.HeroV2;
 
   return (
-    <div>
+    <div data-screen-label="Landing">
       <Nav t={t} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
-      <Hero t={t} lang={lang} />
-      <LogoStrip t={t} />
-      <Pillars t={t} />
-      <IASection t={t} lang={lang} />
-      <Customers t={t} />
-      <Pricing t={t} />
-      <FinalCTA t={t} />
-      <Footer t={t} />
-      {!tweaksOpen && <TweaksToggle onClick={() => setTweaksOpen(true)} />}
-      <Tweaks
-        theme={theme} setTheme={setTheme}
-        hero={hero} setHero={setHero}
-        lang={lang} setLang={setLang}
-        paint={paint} setPaint={setPaint}
-        open={tweaksOpen} setOpen={setTweaksOpen}
-      />
+      <SplashReveal blobs={[{size:380,top:'10%',left:'-8%',delay:120},{size:300,top:'30%',right:'-6%',delay:240}]}>
+        <Hero t={t} lang={lang} paint={paint} setPaint={setPaint} />
+      </SplashReveal>
+      <SplashReveal blobs={[{size:240,top:'-10%',left:'40%',delay:80}]}>
+        <LogoStrip t={t} />
+      </SplashReveal>
+      <SplashReveal blobs={[{size:420,top:'20%',left:'-10%',delay:100},{size:340,bottom:'10%',right:'-8%',delay:260}]}>
+        <Pillars t={t} />
+      </SplashReveal>
+      <SplashReveal blobs={[{size:460,top:'10%',left:'-12%',delay:120},{size:380,bottom:'5%',right:'-10%',delay:280}]}>
+        <IASection t={t} lang={lang} />
+      </SplashReveal>
+      <SplashReveal blobs={[{size:520,top:'10%',left:'10%',delay:120},{size:420,bottom:'-10%',right:'10%',delay:260}]}>
+        <PaintingScene t={t} lang={lang} />
+      </SplashReveal>
+      <SplashReveal blobs={[{size:300,top:'20%',right:'10%',delay:120}]}>
+        <Customers t={t} />
+      </SplashReveal>
+      <SplashReveal blobs={[{size:360,top:'10%',left:'40%',delay:140},{size:280,bottom:'10%',left:'-8%',delay:280}]}>
+        <Pricing t={t} />
+      </SplashReveal>
+      <SplashReveal blobs={[{size:500,top:'10%',left:'10%',delay:120},{size:420,bottom:'-10%',right:'10%',delay:260}]}>
+        <FinalCTA t={t} />
+      </SplashReveal>
+      <SplashReveal>
+        <Footer t={t} />
+      </SplashReveal>
+      <Tweaks theme={theme} setTheme={setTheme} hero={hero} setHero={setHero} lang={lang} setLang={setLang} paint={paint} setPaint={setPaint} open={tweaksOpen} setOpen={setTweaksOpen} />
     </div>
   );
 }

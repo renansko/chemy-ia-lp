@@ -144,12 +144,12 @@ window.I18N = {
 };
 
 window.PAINT_SWATCHES = [
-  { name: { pt: "Branco Neve", en: "Snow White" }, code: "CH-1001", hex: "#F5F1EA" },
-  { name: { pt: "Cinza Urbano", en: "Urban Grey" }, code: "CH-2041", hex: "#9AA0A6" },
-  { name: { pt: "Preto Grafite", en: "Graphite Black" }, code: "CH-9900", hex: "#1E1F22" },
-  { name: { pt: "Vermelho Goiaba", en: "Guava Red" }, code: "CH-3207", hex: "#D94A38" },
-  { name: { pt: "Azul Petróleo", en: "Petroleum Blue" }, code: "CH-5188", hex: "#114E5C" },
-  { name: { pt: "Verde Sálvia", en: "Sage Green" }, code: "CH-6102", hex: "#8FA886" },
-  { name: { pt: "Ocre Sahara", en: "Sahara Ochre" }, code: "CH-7450", hex: "#C89B5A" },
-  { name: { pt: "Rosa Terracota", en: "Terracotta Rose" }, code: "CH-3311", hex: "#C87A6B" }
+  { id: "neve",      name: { pt: "Branco Neve",     en: "Snow White" },       code: "CH-1001", hex: "#F5F1EA" },
+  { id: "urbano",    name: { pt: "Cinza Urbano",    en: "Urban Grey" },       code: "CH-2041", hex: "#9AA0A6" },
+  { id: "grafite",   name: { pt: "Preto Grafite",   en: "Graphite Black" },   code: "CH-9900", hex: "#1E1F22" },
+  { id: "goiaba",    name: { pt: "Vermelho Goiaba", en: "Guava Red" },        code: "CH-3207", hex: "#D94A38" },
+  { id: "petroleo",  name: { pt: "Azul Petróleo",   en: "Petroleum Blue" },   code: "CH-5188", hex: "#114E5C" },
+  { id: "salvia",    name: { pt: "Verde Sálvia",    en: "Sage Green" },       code: "CH-6102", hex: "#8FA886" },
+  { id: "sahara",    name: { pt: "Ocre Sahara",     en: "Sahara Ochre" },     code: "CH-7450", hex: "#C89B5A" },
+  { id: "terracota", name: { pt: "Rosa Terracota",  en: "Terracotta Rose" },  code: "CH-3311", hex: "#C87A6B" }
 ];

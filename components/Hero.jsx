@@ -1,6 +1,6 @@
 // components/Hero.jsx — two variants
 
-function HeroV1({ t, lang }) {
+function HeroV1({ t, lang, paint, setPaint }) {
   // Editorial hero — big serif headline over swatches
   const swatches = window.PAINT_SWATCHES;
   return (
@@ -36,19 +36,48 @@ function HeroV1({ t, lang }) {
           gap: 0, border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)',
           overflow: 'hidden', background: 'var(--bg-elev)'
         }}>
-          {swatches.map((s, i) => (
-            <div key={i} style={{
-              borderRight: i < swatches.length - 1 ? '1px solid var(--border)' : 'none'
-            }}>
-              <div style={{ background: s.hex, height: 140 }} />
-              <div style={{ padding: '14px 16px' }}>
-                <div className="mono" style={{ fontSize: 10, color: 'var(--fg-dim)', letterSpacing: '0.08em' }}>
-                  {s.code}
+          {swatches.map((s, i) => {
+            const active = paint === s.id;
+            return (
+              <button
+                key={i}
+                onClick={() => setPaint && setPaint(s.id)}
+                title={lang === 'pt' ? `Aplicar ${s.name.pt}` : `Apply ${s.name.en}`}
+                style={{
+                  borderRight: i < swatches.length - 1 ? '1px solid var(--border)' : 'none',
+                  border: 'none', background: 'transparent',
+                  borderTop: active ? '3px solid var(--paint-hue)' : '3px solid transparent',
+                  cursor: 'pointer', padding: 0, textAlign: 'left',
+                  fontFamily: 'inherit', color: 'inherit',
+                  transition: 'transform 200ms ease',
+                  transform: active ? 'translateY(-4px)' : 'none'
+                }}
+                onMouseEnter={(e) => { if (!active) e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                onMouseLeave={(e) => { if (!active) e.currentTarget.style.transform = 'none'; }}
+              >
+                <div style={{
+                  background: s.hex, height: 140, position: 'relative',
+                  boxShadow: active ? 'inset 0 0 0 3px var(--bg-elev)' : 'none'
+                }}>
+                  {active && (
+                    <div style={{
+                      position: 'absolute', top: 10, right: 10,
+                      width: 22, height: 22, borderRadius: '50%',
+                      background: 'var(--bg-elev)', color: 'var(--paint-hue)',
+                      fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontWeight: 600
+                    }}>✓</div>
+                  )}
                 </div>
-                <div style={{ fontSize: 13, marginTop: 4, color: 'var(--fg)' }}>{s.name[lang]}</div>
-              </div>
-            </div>
-          ))}
+                <div style={{ padding: '14px 16px' }}>
+                  <div className="mono" style={{ fontSize: 10, color: 'var(--fg-dim)', letterSpacing: '0.08em' }}>
+                    {s.code}
+                  </div>
+                  <div style={{ fontSize: 13, marginTop: 4, color: 'var(--fg)' }}>{s.name[lang]}</div>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* Stats */}
@@ -65,7 +94,7 @@ function HeroV1({ t, lang }) {
   );
 }
 
-function HeroV2({ t, lang }) {
+function HeroV2({ t, lang, paint, setPaint }) {
   // Dashboard-forward hero — split with product preview
   return (
     <section style={{ position: 'relative', overflow: 'hidden' }}>
@@ -102,14 +131,14 @@ function HeroV2({ t, lang }) {
               ))}
             </div>
           </div>
-          <HeroMiniDash lang={lang} />
+          <HeroMiniDash lang={lang} paint={paint} setPaint={setPaint} />
         </div>
       </div>
     </section>
   );
 }
 
-function HeroMiniDash({ lang }) {
+function HeroMiniDash({ lang, paint, setPaint }) {
   const swatches = window.PAINT_SWATCHES.slice(0, 6);
   return (
     <div style={{
@@ -161,12 +190,17 @@ function HeroMiniDash({ lang }) {
       </div>
       {/* swatch grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 6 }}>
-        {swatches.map((s, i) => (
-          <div key={i} style={{
-            aspectRatio: '1', background: s.hex, borderRadius: 6,
-            border: '1px solid var(--border)'
-          }} />
-        ))}
+        {swatches.map((s, i) => {
+          const active = paint === s.id;
+          return (
+            <button key={i} onClick={() => setPaint && setPaint(s.id)} title={s.name[lang]} style={{
+              aspectRatio: '1', background: s.hex, borderRadius: 6,
+              border: active ? '2px solid var(--fg)' : '1px solid var(--border)',
+              cursor: 'pointer', padding: 0,
+              boxShadow: active ? '0 0 0 2px var(--bg-elev), 0 0 0 3px var(--paint-hue)' : 'none'
+            }} />
+          );
+        })}
       </div>
     </div>
   );
