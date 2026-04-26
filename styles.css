@@ -128,88 +128,52 @@ a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 10px; }
 
 /* ───────────────────────────────────────────
-   Paint splash reveal — sections paint themselves
-   onto the page as the user scrolls forward.
+   Paint splash reveal — content emerges from
+   within a growing paint splash.
    ─────────────────────────────────────────── */
 
-.splash-reveal {
-  /* Until visible: collapsed paint blobs */
-  opacity: 0;
-  transform: translateY(40px) scale(0.985);
-  filter: blur(6px) saturate(0.6);
-  -webkit-mask-image:
-    radial-gradient(ellipse 30% 35% at 18% 32%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 32% 38% at 72% 18%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 34% 36% at 30% 78%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 30% 34% at 86% 64%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 38% 40% at 55% 50%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 28% 32% at 12% 88%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 30% 30% at 92% 92%, #000 40%, transparent 100%);
-  mask-image:
-    radial-gradient(ellipse 30% 35% at 18% 32%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 32% 38% at 72% 18%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 34% 36% at 30% 78%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 30% 34% at 86% 64%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 38% 40% at 55% 50%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 28% 32% at 12% 88%, #000 40%, transparent 100%),
-    radial-gradient(ellipse 30% 30% at 92% 92%, #000 40%, transparent 100%);
-  -webkit-mask-size: 25%, 25%, 25%, 25%, 30%, 25%, 25%;
-  mask-size: 25%, 25%, 25%, 25%, 30%, 25%, 25%;
-  -webkit-mask-position: 18% 32%, 72% 18%, 30% 78%, 86% 64%, 55% 50%, 12% 88%, 92% 92%;
-  mask-position: 18% 32%, 72% 18%, 30% 78%, 86% 64%, 55% 50%, 12% 88%, 92% 92%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+.splash-reveal-host {
+  position: relative;
+}
+
+.splash-reveal-content {
+  position: relative;
+  z-index: 1;
   transition:
-    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    -webkit-mask-size 1300ms cubic-bezier(0.16, 1.1, 0.3, 1),
-    mask-size 1300ms cubic-bezier(0.16, 1.1, 0.3, 1);
+    -webkit-mask-size 1400ms cubic-bezier(0.16, 1.1, 0.3, 1),
+    mask-size 1400ms cubic-bezier(0.16, 1.1, 0.3, 1);
 }
 
-.splash-reveal.in-view {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0) saturate(1);
-  -webkit-mask-image: none;
-  mask-image: none;
-  -webkit-mask-size: 400%, 400%, 400%, 400%, 500%, 400%, 400%;
-  mask-size: 400%, 400%, 400%, 400%, 500%, 400%, 400%;
-}
-
-/* Paint blob accent that slides in behind each section */
-.splash-blob {
+.splash-shadow {
   position: absolute;
+  inset: 0;
   pointer-events: none;
-  border-radius: 50%;
   background: var(--paint-hue);
-  opacity: 0;
-  filter: blur(60px);
-  transition: opacity 1200ms ease, transform 1400ms cubic-bezier(0.22, 1, 0.36, 1);
-  transform: scale(0.3);
-  z-index: 0;
+  opacity: 0.55;
+  filter: blur(6px);
   mix-blend-mode: multiply;
+  z-index: 0;
+  transition:
+    -webkit-mask-size 1500ms cubic-bezier(0.16, 1.1, 0.3, 1),
+    mask-size 1500ms cubic-bezier(0.16, 1.1, 0.3, 1),
+    opacity 1400ms ease-out 200ms,
+    filter 800ms ease-out;
 }
-[data-theme="dark"] .splash-blob { mix-blend-mode: screen; }
+[data-theme="dark"] .splash-shadow { mix-blend-mode: screen; opacity: 0.4; }
 
-.splash-reveal.in-view .splash-blob {
-  opacity: 0.35;
-  transform: scale(1);
+.splash-shadow.in {
+  opacity: 0;
+  filter: blur(0);
 }
-
-/* Stagger: each section delays its splash a touch */
-.splash-reveal[data-splash-i="0"] { transition-delay: 0ms; }
-.splash-reveal[data-splash-i="1"] { transition-delay: 60ms; }
-.splash-reveal[data-splash-i="2"] { transition-delay: 90ms; }
-.splash-reveal[data-splash-i="3"] { transition-delay: 120ms; }
 
 @media (prefers-reduced-motion: reduce) {
-  .splash-reveal {
-    opacity: 1; transform: none; filter: none;
-    -webkit-mask-image: none; mask-image: none;
-    -webkit-clip-path: none; clip-path: none;
+  .splash-reveal-content {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    -webkit-mask-size: auto !important;
+    mask-size: auto !important;
   }
-  .splash-blob { display: none; }
+  .splash-shadow { display: none; }
 }
 
 /* ───────────────────────────────────────────

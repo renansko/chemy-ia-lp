@@ -20,7 +20,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "theme": "dark",
   "hero": "v1",
   "lang": "pt",
-  "paint": "sahara"
+  "paint": "terracota"
 }/*EDITMODE-END*/;
 window.__TWEAKS__ = { ...TWEAK_DEFAULTS };
 </script>
@@ -76,31 +76,31 @@ function App() {
   return (
     <div data-screen-label="Landing">
       <Nav t={t} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} />
-      <SplashReveal blobs={[{size:380,top:'10%',left:'-8%',delay:120},{size:300,top:'30%',right:'-6%',delay:240}]}>
+      <SplashReveal seed={1}>
         <Hero t={t} lang={lang} paint={paint} setPaint={setPaint} />
       </SplashReveal>
-      <SplashReveal blobs={[{size:240,top:'-10%',left:'40%',delay:80}]}>
+      <SplashReveal seed={2}>
         <LogoStrip t={t} />
       </SplashReveal>
-      <SplashReveal blobs={[{size:420,top:'20%',left:'-10%',delay:100},{size:340,bottom:'10%',right:'-8%',delay:260}]}>
+      <SplashReveal seed={3}>
         <Pillars t={t} />
       </SplashReveal>
-      <SplashReveal blobs={[{size:460,top:'10%',left:'-12%',delay:120},{size:380,bottom:'5%',right:'-10%',delay:280}]}>
+      <SplashReveal seed={4}>
         <IASection t={t} lang={lang} />
       </SplashReveal>
-      <SplashReveal blobs={[{size:520,top:'10%',left:'10%',delay:120},{size:420,bottom:'-10%',right:'10%',delay:260}]}>
+      <SplashReveal seed={5}>
         <PaintingScene t={t} lang={lang} />
       </SplashReveal>
-      <SplashReveal blobs={[{size:300,top:'20%',right:'10%',delay:120}]}>
+      <SplashReveal seed={6}>
         <Customers t={t} />
       </SplashReveal>
-      <SplashReveal blobs={[{size:360,top:'10%',left:'40%',delay:140},{size:280,bottom:'10%',left:'-8%',delay:280}]}>
+      <SplashReveal seed={7}>
         <Pricing t={t} />
       </SplashReveal>
-      <SplashReveal blobs={[{size:500,top:'10%',left:'10%',delay:120},{size:420,bottom:'-10%',right:'10%',delay:260}]}>
+      <SplashReveal seed={8}>
         <FinalCTA t={t} />
       </SplashReveal>
-      <SplashReveal>
+      <SplashReveal seed={9}>
         <Footer t={t} />
       </SplashReveal>
       <Tweaks theme={theme} setTheme={setTheme} hero={hero} setHero={setHero} lang={lang} setLang={setLang} paint={paint} setPaint={setPaint} open={tweaksOpen} setOpen={setTweaksOpen} />
