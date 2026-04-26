@@ -49,9 +49,8 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    document.documentElement.setAttribute('data-paint', paint);
     document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
-  }, [theme, lang, paint]);
+  }, [theme, lang]);
 
   const persist = (key, val) => {
     try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*'); } catch (e) {}
