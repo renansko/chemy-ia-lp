@@ -32,7 +32,7 @@ window.__TWEAKS__ = { ...TWEAK_DEFAULTS };
 <script type="text/babel" src="components/Sections.jsx"></script>
 <script type="text/babel" src="components/PaintingScene.jsx"></script>
 <script type="text/babel" src="components/SplashReveal.jsx"></script>
-<script type="text/babel" src="components/PaintThemeTransition.jsx"></script>
+<script type="text/babel" src="components/InkFlowBackground.jsx"></script>
 <script type="text/babel" src="components/Tweaks.jsx"></script>
 
 <script type="text/babel">
@@ -47,10 +47,10 @@ function App() {
 
   const t = window.I18N[lang];
 
+  // data-theme / data-paint are applied by InkFlowBackground once the ink lands.
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
     document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
-  }, [theme, lang]);
+  }, [lang]);
 
   const persist = (key, val) => {
     try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*'); } catch (e) {}
@@ -103,7 +103,7 @@ function App() {
       <SplashReveal seed={9}>
         <Footer t={t} />
       </SplashReveal>
-      <PaintThemeTransition paint={paint} theme={theme} />
+      <InkFlowBackground paint={paint} theme={theme} lang={lang} />
       <Tweaks theme={theme} setTheme={setTheme} hero={hero} setHero={setHero} lang={lang} setLang={setLang} paint={paint} setPaint={setPaint} open={tweaksOpen} setOpen={setTweaksOpen} />
     </div>
   );

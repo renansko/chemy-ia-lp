@@ -26,7 +26,7 @@ function LogoStrip({ t }) {
 
 function Pillars({ t }) {
   return (
-    <section id="features" style={{ padding: '120px 0', background: 'var(--bg)' }}>
+    <section id="features" style={{ padding: '120px 0' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 48, marginBottom: 64 }}>
           <span className="eyebrow">{t.pillars.eyebrow}</span>
@@ -106,7 +106,7 @@ function IASection({ t, lang }) {
 
 function Customers({ t }) {
   return (
-    <section id="customers" style={{ padding: '120px 0', background: 'var(--bg)' }}>
+    <section id="customers" style={{ padding: '120px 0' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 64, alignItems: 'center' }}>
           <div>
