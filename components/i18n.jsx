@@ -5,40 +5,40 @@ window.I18N = {
     nav: { product: "Produto", features: "Recursos", ia: "IA", customers: "Clientes", pricing: "Preços" },
     cta: { demo: "Agendar demo", trial: "Teste grátis", signin: "Entrar", talk: "Falar com vendas" },
     hero: {
-      eyebrow: "Motor de operações para fábricas de tintas",
+      eyebrow: "ERP construído por IA para a indústria química",
       title_pre: "O sistema que ",
-      title_em: "faz sua fábrica",
-      title_post: " vender, produzir e entregar.",
-      sub: "Do pedido do balcão ao batelado na linha. Chemy unifica vendas, estoque por lote, produção e força de campo em uma só plataforma — com IA que sugere pedidos antes do cliente pedir.",
+      title_em: "constrói o ERP",
+      title_post: " da sua empresa.",
+      sub: "A IA monta o ERP do jeito que a sua fábrica funciona. Cada setor fala com você, você vê tudo que está sendo mexido, e seus dados conversam com a IA pelo seu próprio ChatGPT ou Claude Code.",
       cta_primary: "Assistir demo",
       cta_secondary: "Ver produto ao vivo",
       stats: [
-        { k: "+32%", v: "pedidos por representante" },
-        { k: "−4 dias", v: "no ciclo de produção" },
-        { k: "98%", v: "rastreabilidade de lote" }
+        { k: "18", v: "setores com agente próprio" },
+        { k: "100%", v: "das ações auditadas" },
+        { k: "21 dias", v: "para operar com o seu ERP" }
       ]
     },
     logos: "Fábricas que já operam com chemy",
     pillars: {
       eyebrow: "Módulos",
-      title: "Uma plataforma. Toda a operação da tinta.",
+      title: "Um ERP que a IA constrói com você.",
       items: [
         { tag: "01", t: "Pedidos & Pipeline", d: "CRM de revendas, pintores e construtoras. Pipeline visual, cotação com tabela multi-nível, aprovação de desconto no WhatsApp." },
         { tag: "02", t: "Lote & Estoque", d: "Rastreabilidade por batelada. Matéria-prima ligada ao produto final. FEFO automático. Alerta de validade de resina e pigmento." },
         { tag: "03", t: "Produção", d: "Ordens de fabricação geradas do pedido. Fórmulas versionadas. Apontamento no chão de fábrica. Custo real por litro." },
         { tag: "04", t: "Força de vendas", d: "App offline para o representante. Rota inteligente, histórico do cliente, catálogo com leque de cores e simulador de ambiente." },
-        { tag: "05", t: "IA Chemy", d: "Sugere o próximo pedido por sazonalidade. Prevê ruptura de pigmento. Detecta revenda que parou de comprar." },
-        { tag: "06", t: "Financeiro", d: "Faturamento, boleto, comissão do representante e repasse do misturador. ERP nativo ou integrado ao seu." }
+        { tag: "05", t: "IA Chemy", d: "Conecte seu ChatGPT ou Claude Code. Cada setor tem um agente que responde a você, com permissão por setor e cada ação registrada." },
+        { tag: "06", t: "Financeiro", d: "Faturamento, boleto, comissão do representante e repasse do misturador. ERP nativo, ou a IA traz o seu ERP atual para dentro e você usa só o que quiser." }
       ]
     },
     ia: {
       eyebrow: "Chemy IA",
-      title: "Sua fábrica, antecipada.",
-      sub: "Chemy IA lê seu histórico de 18 meses e te diz o que pedir, o que produzir e quem ligar — hoje.",
+      title: "Seu ERP, construído conversando.",
+      sub: "Conecte seu ChatGPT ou Claude Code. A IA monta a estrutura da sua empresa, cada setor responde a você e toda ação fica registrada com quem fez e quando.",
       examples: [
-        { time: "08:14", t: "Casa das Tintas — Fortaleza", body: "Não compra há 23 dias. Média de ciclo: 18 dias. Sugestão: ligar hoje. Proposta pronta: 180L Branco Neve + 40L Cinza Urbano." },
-        { time: "09:02", t: "Produção — Linha 2", body: "Ruptura projetada de resina acrílica em 6 dias. Pedido sugerido ao fornecedor Ômega (8.400L) já no carrinho." },
-        { time: "14:30", t: "Sazonalidade — litoral SC", body: "Vermelho Goiaba sobe 34% em novembro (3 anos). Sugestão: programar 2 bateladas extras a partir de 05/11." }
+        { time: "08:14", t: "Implantação — via Claude Code", body: "Li a estrutura do seu ERP atual: 412 produtos, 38 fórmulas, 3 depósitos. Mapeamento pronto para você aprovar. Nada foi gravado ainda." },
+        { time: "09:02", t: "Estoque — setor respondendo", body: "Lote 2041-B de resina acrílica reservado para a OP 118. Pedido por Marcos às 08:57, pelo ChatGPT. Registrado na auditoria." },
+        { time: "14:30", t: "Vendas — setor respondendo", body: "Casa das Tintas está há 23 dias sem comprar. Montei a proposta: 180L Branco Neve + 40L Cinza Urbano. Preciso da sua aprovação para enviar." }
       ]
     },
     customers: {
@@ -57,14 +57,14 @@ window.I18N = {
       ]
     },
     final: {
-      title: "Pronto para uma fábrica que opera sozinha?",
-      sub: "30 minutos de demo. Implantação em 21 dias.",
+      title: "Pronto para um ERP que a IA constrói com você?",
+      sub: "30 minutos de demo. Conecte seu ChatGPT ou Claude Code no primeiro dia.",
       cta: "Agendar demo"
     },
     footer: {
-      tagline: "Motor de operações para a indústria química de tintas e vernizes.",
+      tagline: "ERP para a indústria química, construído e operado com IA.",
       cols: [
-        { h: "Produto", links: ["Pedidos", "Estoque & Lotes", "Produção", "Força de vendas", "IA Chemy"] },
+        { h: "Produto", links: ["Pedidos", "Estoque & Lotes", "Produção", "Força de vendas", "IA Chemy", "Agentes & MCP"] },
         { h: "Empresa", links: ["Sobre", "Clientes", "Carreiras", "Blog"] },
         { h: "Recursos", links: ["Centro de ajuda", "API", "Segurança", "Status"] }
       ],
@@ -75,40 +75,40 @@ window.I18N = {
     nav: { product: "Product", features: "Features", ia: "AI", customers: "Customers", pricing: "Pricing" },
     cta: { demo: "Book demo", trial: "Free trial", signin: "Sign in", talk: "Talk to sales" },
     hero: {
-      eyebrow: "Operations engine for paint factories",
+      eyebrow: "AI-built ERP for the chemical industry",
       title_pre: "The system that ",
-      title_em: "makes your factory",
-      title_post: " sell, produce and deliver.",
-      sub: "From counter order to batched line. Chemy unifies sales, lot inventory, production and field reps in one platform — with AI that suggests orders before the customer asks.",
+      title_em: "builds the ERP",
+      title_post: " for your company.",
+      sub: "AI assembles the ERP the way your factory actually runs. Every department talks to you, you see everything being touched, and your data talks to AI through your own ChatGPT or Claude Code.",
       cta_primary: "Watch demo",
       cta_secondary: "See live product",
       stats: [
-        { k: "+32%", v: "orders per rep" },
-        { k: "−4 days", v: "production cycle" },
-        { k: "98%", v: "batch traceability" }
+        { k: "18", v: "departments with their own agent" },
+        { k: "100%", v: "of actions audited" },
+        { k: "21 days", v: "to go live with your ERP" }
       ]
     },
     logos: "Factories already running on chemy",
     pillars: {
       eyebrow: "Modules",
-      title: "One platform. The entire paint operation.",
+      title: "An ERP that AI builds with you.",
       items: [
         { tag: "01", t: "Orders & Pipeline", d: "CRM for dealers, painters and contractors. Visual pipeline, multi-tier pricing, discount approval via WhatsApp." },
         { tag: "02", t: "Lot & Stock", d: "Batch-level traceability. Raw material linked to finished product. Auto FEFO. Resin & pigment shelf-life alerts." },
         { tag: "03", t: "Production", d: "MOs generated from the order. Versioned formulas. Shop-floor reporting. Real cost per liter." },
         { tag: "04", t: "Field sales", d: "Offline app for reps. Smart routing, customer history, color fan deck and room visualizer." },
-        { tag: "05", t: "Chemy AI", d: "Suggests next order by seasonality. Forecasts pigment outages. Flags dormant dealers." },
-        { tag: "06", t: "Finance", d: "Invoicing, bank slip, rep commission and mixer royalties. Native ERP or plugs into yours." }
+        { tag: "05", t: "Chemy AI", d: "Connect your ChatGPT or Claude Code. Each department has an agent that answers to you, with per-department permissions and every action logged." },
+        { tag: "06", t: "Finance", d: "Invoicing, bank slip, rep commission and mixer royalties. Native ERP, or AI brings your current ERP in and you use only what you want." }
       ]
     },
     ia: {
       eyebrow: "Chemy AI",
-      title: "Your factory, one step ahead.",
-      sub: "Chemy AI reads 18 months of history and tells you what to order, what to produce and who to call — today.",
+      title: "Your ERP, built by talking.",
+      sub: "Connect your ChatGPT or Claude Code. AI assembles your company's structure, each department answers to you, and every action is logged with who did it and when.",
       examples: [
-        { time: "08:14", t: "Casa das Tintas — Fortaleza", body: "No orders in 23 days. Avg cycle: 18 days. Suggestion: call today. Proposal ready: 180L Snow White + 40L Urban Grey." },
-        { time: "09:02", t: "Production — Line 2", body: "Acrylic resin outage projected in 6 days. Suggested PO to supplier Ômega (8,400L) already in cart." },
-        { time: "14:30", t: "Seasonality — SC coast", body: "Guava Red rises 34% in November (3-yr avg). Suggestion: schedule 2 extra batches from Nov 5." }
+        { time: "08:14", t: "Onboarding — via Claude Code", body: "I read your current ERP's structure: 412 products, 38 formulas, 3 warehouses. Mapping ready for your approval. Nothing written yet." },
+        { time: "09:02", t: "Inventory — department replying", body: "Lot 2041-B of acrylic resin reserved for MO 118. Requested by Marcos at 08:57 via ChatGPT. Logged in the audit trail." },
+        { time: "14:30", t: "Sales — department replying", body: "Casa das Tintas hasn't ordered in 23 days. Proposal drafted: 180L Snow White + 40L Urban Grey. I need your approval to send it." }
       ]
     },
     customers: {
@@ -127,14 +127,14 @@ window.I18N = {
       ]
     },
     final: {
-      title: "Ready for a factory that runs itself?",
-      sub: "30-minute demo. Go live in 21 days.",
+      title: "Ready for an ERP that AI builds with you?",
+      sub: "30-minute demo. Connect your ChatGPT or Claude Code on day one.",
       cta: "Book demo"
     },
     footer: {
-      tagline: "Operations engine for the paint & coatings industry.",
+      tagline: "ERP for the chemical industry, built and operated with AI.",
       cols: [
-        { h: "Product", links: ["Orders", "Stock & Lots", "Production", "Field sales", "Chemy AI"] },
+        { h: "Product", links: ["Orders", "Stock & Lots", "Production", "Field sales", "Chemy AI", "Agents & MCP"] },
         { h: "Company", links: ["About", "Customers", "Careers", "Blog"] },
         { h: "Resources", links: ["Help center", "API", "Security", "Status"] }
       ],

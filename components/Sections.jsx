@@ -75,7 +75,7 @@ function IASection({ t, lang }) {
         </div>
         <div style={{ maxWidth: 820, margin: '0 auto', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: 8 }}>
           <div className="mono" style={{ fontSize: 10, color: 'var(--fg-dim)', letterSpacing: '0.14em', padding: '14px 18px 10px' }}>
-            {lang === 'pt' ? '▍ FEED DA CHEMY IA · HOJE' : '▍ CHEMY AI FEED · TODAY'}
+            {lang === 'pt' ? '▍ SEU ERP · CADA SETOR FALA COM VOCÊ' : '▍ YOUR ERP · EVERY DEPARTMENT TALKS TO YOU'}
           </div>
           {t.ia.examples.map((ex, i) => (
             <div key={i} style={{
